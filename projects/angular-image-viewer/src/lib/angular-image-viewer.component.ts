@@ -222,6 +222,14 @@ export class AngularImageViewerComponent implements OnInit, OnChanges {
     this.updateStyle();
   }
 
+  getSafeImageUrl(image: string) {
+    if (image.startsWith('http')) {
+      return this.sanitizer.bypassSecurityTrustUrl(image);
+    } else {
+      return this.sanitizer.bypassSecurityTrustResourceUrl(image);
+    }
+  }
+
   @HostListener('mouseover')
   onMouseOver() {
     this.hovered = true;
